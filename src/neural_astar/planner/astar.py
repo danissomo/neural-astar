@@ -54,19 +54,18 @@ class VanillaAstar(nn.Module):
         store_intermediate_results: bool = False,
     ) -> AstarOutput:
 
-        # astar = (
-        #     self.astar
-        #     if self.use_differentiable_astar
-        #     else partial(pq_astar, g_ratio=self.g_ratio)
-        # )
-        from modules.planners import DifferentiableDiagAstar
-        astar = DifferentiableDiagAstar().to(map_designs.device)
+        astar = (
+            self.astar
+            if self.use_differentiable_astar
+            else partial(pq_astar, g_ratio=self.g_ratio)
+        )
 
         astar_outputs = astar(
             map_designs,
             start_maps,
             goal_maps,
-            obstacles_maps
+            obstacles_maps,
+            store_intermediate_results,
         )
 
         return astar_outputs
