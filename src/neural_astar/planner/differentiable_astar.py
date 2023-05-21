@@ -259,6 +259,7 @@ class DifferentiableAstar(nn.Module):
                 {
                     "histories": histories.unsqueeze(1).detach(),
                     "paths": path_maps.unsqueeze(1).detach(),
+                    "g" : g.unsqueeze(1)
                 }
             )
 
